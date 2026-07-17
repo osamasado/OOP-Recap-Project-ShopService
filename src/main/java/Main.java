@@ -2,6 +2,7 @@ import DTO.Product;
 import Repositories.OrderListRepo;
 import Repositories.ProductRepo;
 import Services.ShopService;
+import Utils.ConsoleColors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +23,10 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         for (Product product : storeProducts) {
-            System.out.print("Enter price of product " + product.name() + " : ");
+            System.out.print(ConsoleColors.BLUE + "Enter price of product " + product.name() + " : " + ConsoleColors.RESET);
             double price = scanner.nextDouble();
             Product productWithPrice = product.withPrice(price);
-            System.out.print("Enter amount of product " + product.name() + " : ");
+            System.out.print(ConsoleColors.YELLOW + "Enter amount of product " + product.name() + " : " + ConsoleColors.RESET);
             double amount = scanner.nextDouble();
             Product productFull = productWithPrice.withAmount(amount);
             productRepo.addProduct(productFull);
@@ -38,6 +39,6 @@ public class Main {
 
 //        shopService.createOrder(2, List.of(product1, product3));
 
-        System.out.println(shopService.getAllOrders());
+        System.out.println(ConsoleColors.BLUE +shopService.getAllOrders() + ConsoleColors.RESET);
     }
 }
