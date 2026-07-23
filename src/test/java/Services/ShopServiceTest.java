@@ -5,6 +5,7 @@ import DTO.Product;
 import Inertfaces.OrderRepoInterface;
 import Repositories.OrderMapRepo;
 import Repositories.ProductRepo;
+import Utils.OrderStatus;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -44,6 +45,31 @@ class ShopServiceTest {
 
         assertThat(orderRepo.getOrderById(fisrtOrder.id()).products())
                 .containsExactly(product1, product2);
+
+    }
+
+    @Test
+    void getOrdersByStatus_shouldReturnTrue() {
+        ProductRepo productRepo = new ProductRepo();
+        OrderRepoInterface orderRepo = new OrderMapRepo();
+
+        Product product1 = new Product("1", "Laptop", "HP Laptop 2026",10, 5);
+        Product product2 = new Product("2", "Maus", "Wireless Maus",5, 10);
+
+        productRepo.addProduct(product1);
+        productRepo.addProduct(product2);
+
+        ShopService shopService = new ShopService(productRepo, orderRepo);
+
+        shopService.createOrder(1, productRepo.getAllProducts().values());
+
+        assertThat(shopService.getOrdersByStatus(OrderStatus.IN_PROCESSING))
+                .hasSize(1);
+
+        assertFalse(shopService.getOrdersByStatus(OrderStatus.IN_PROCESSING).isEmpty());
+        assertTrue(shopService.getOrdersByStatus(OrderStatus.COMPLETED).isEmpty());
+        assertTrue(shopService.getOrdersByStatus(OrderStatus.CANCELED).isEmpty());
+        assertTrue(shopService.getOrdersByStatus(OrderStatus.IN_DELIVERY).isEmpty());
 
     }
 }

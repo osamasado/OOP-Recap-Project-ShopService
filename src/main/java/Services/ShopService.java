@@ -44,4 +44,10 @@ public class ShopService {
         return orderRepo.getAllOrders();
     }
 
+    public Collection<Order> getOrdersByStatus(OrderStatus orderStatus) {
+        return orderRepo.getAllOrders().stream()
+                .filter(order -> order.status().equals(orderStatus))
+                .toList();
+    }
+
 }
