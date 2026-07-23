@@ -27,9 +27,8 @@ public class ShopService {
         double totalPrice = 0.0;
         double totalAmount = 0.0;
         for (Product product: products) {
-            if(productRepo.getProductById(product.id()) == null) {
-                System.out.println(ConsoleColors.RED + "DTO.Product with ID: " + product.id() + " is not found in store!" + ConsoleColors.RESET);
-                continue;
+            if(productRepo.getProductById(product.id()).isEmpty()) {
+                throw new NoSuchElementException("DTO.Product with ID: " + product.id() + " is not found in store!");
             }
             productsToOrder.add(product);
             totalAmount += product.amount();
