@@ -7,6 +7,7 @@ import Utils.ProductCsvReader;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Main {
@@ -47,13 +48,13 @@ public class Main {
                 }
                 orderIsFinished = true;
             } else {
-                Product product = productRepo.getProductById(input);
-                if(product == null) {
+                Optional<Product> product = productRepo.getProductById(input);
+                if(product.isEmpty()) {
                     System.out.println(ConsoleColors.RED + "Sorry! Your chosen product is not foud in store!" + ConsoleColors.RESET);
                     continue;
                 }
                 System.out.print(ConsoleColors.YELLOW +
-                        "Enter amount of product " + product.name() + " : "
+                        "Enter amount of product " + product.get().name() + " : "
                         + ConsoleColors.RESET);
 
                 String amountInput = scanner.nextLine();
@@ -63,7 +64,7 @@ public class Main {
                     continue;
                 }
                 double amount = Double.parseDouble(amountInput);
-                Product productFull = product.withAmount(amount);
+                Product productFull = product.get().withAmount(amount);
                 System.out.println("Product: " + productFull);
                 orderProducts.add(productFull);
                 System.out.println(ConsoleColors.GREEN + "Your product is added to you order successfully!");
