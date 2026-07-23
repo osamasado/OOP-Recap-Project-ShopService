@@ -4,6 +4,7 @@ import DTO.Product;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class ProductRepo {
     private final Map<String,Product> products = new HashMap<>();
@@ -20,7 +21,10 @@ public class ProductRepo {
         products.remove(productId);
     }
 
-    public Product getProductById(String productId) {
-        return products.get(productId);
+    public Optional<Product> getProductById(String productId) {
+        if(products.get(productId) == null) {
+            return Optional.empty();
+        }
+        return  Optional.of(products.get(productId));
     }
 }

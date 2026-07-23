@@ -3,6 +3,8 @@ package Repositories;
 import DTO.Product;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -49,15 +51,15 @@ class ProductRepoTest {
     }
 
     @Test
-    void getProductById_shouldReturnProductFromRepo_whenCalledWithOneProduct() {
+    void getProductById_shouldReturnProductFromRepo_whenCalledWithExistedProduct() {
 
         ProductRepo repo = new ProductRepo();
         Product product = new Product("1", "Laptop", "HP Laptop 2026",999.99, 0);
-
+        Optional<Product> optionalProduct = Optional.of(product);
         repo.addProduct(product);
 
-        Product expected = repo.getProductById(product.id());
+        Optional<Product> actual = repo.getProductById(product.id());
 
-        assertEquals(expected, product);
+        assertEquals(optionalProduct, actual);
     }
 }
