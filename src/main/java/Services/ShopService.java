@@ -6,6 +6,7 @@ import Inertfaces.OrderRepoInterface;
 import Repositories.OrderListRepo;
 import Repositories.ProductRepo;
 import Utils.ConsoleColors;
+import Utils.OrderStatus;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -34,7 +35,7 @@ public class ShopService {
             totalAmount += product.amount();
             totalPrice += product.amount() * product.price();
         }
-        Order order = new Order(UUID.randomUUID().toString(), LocalDate.now(), customerId, productsToOrder, totalPrice, totalAmount);
+        Order order = new Order(UUID.randomUUID().toString(), LocalDate.now(), customerId, productsToOrder, totalPrice, totalAmount, OrderStatus.IN_PROCESSING);
         orderRepo.addOrder(order);
         System.out.println(ConsoleColors.GREEN + "Your order is created." + ConsoleColors.RESET);
     }

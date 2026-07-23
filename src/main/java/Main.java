@@ -18,7 +18,7 @@ public class Main {
 
         reader.loadProducts(productRepo);
 
-        String line = "-".repeat(200);
+        String line = "-".repeat(150);
         System.out.printf("%-15s %-50s %-50s %-10s %-10s", "id|", "Name", "description", "Price", "Amount");
         System.out.println();
         System.out.println(line);
@@ -27,6 +27,7 @@ public class Main {
             System.out.printf("%-15s %-1s %-50s %-50s %-10s %-10s", product.id(), separator, product.name(), product.description(), product.price(), product.amount());
             System.out.println();
         }
+        System.out.println(line);
         Scanner scanner = new Scanner(System.in);
 
         boolean orderIsFinished = false;
