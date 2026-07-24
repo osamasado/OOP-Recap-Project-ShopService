@@ -3,24 +3,19 @@ package Services;
 import DTO.Order;
 import DTO.Product;
 import Inertfaces.OrderRepoInterface;
-import Repositories.OrderListRepo;
 import Repositories.ProductRepo;
 import Utils.ConsoleColors;
 import Utils.OrderStatus;
+import lombok.RequiredArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.Instant;
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
 
+@RequiredArgsConstructor
 public class ShopService {
     private final ProductRepo productRepo;
 
     private final OrderRepoInterface orderRepo;
-
-    public ShopService(ProductRepo productRepo, OrderRepoInterface orderRepo) {
-        this.productRepo = productRepo;
-        this.orderRepo = orderRepo;
-    }
 
     public void createOrder(int customerId,Collection<Product> products) {
         List<Product> productsToOrder = new ArrayList<>();
@@ -34,7 +29,7 @@ public class ShopService {
             totalAmount += product.amount();
             totalPrice += product.amount() * product.price();
         }
-        Order order = new Order(UUID.randomUUID().toString(), LocalDate.now(), customerId, productsToOrder, totalPrice, totalAmount, OrderStatus.IN_PROCESSING);
+        Order order = new Order(UUID.randomUUID().toString(), Instant.now(), customerId, productsToOrder, totalPrice, totalAmount, OrderStatus.IN_PROCESSING);
         orderRepo.addOrder(order);
         System.out.println(ConsoleColors.GREEN + "Your order is created." + ConsoleColors.RESET);
     }
