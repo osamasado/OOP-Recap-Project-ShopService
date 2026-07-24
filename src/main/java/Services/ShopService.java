@@ -6,19 +6,16 @@ import Inertfaces.OrderRepoInterface;
 import Repositories.ProductRepo;
 import Utils.ConsoleColors;
 import Utils.OrderStatus;
+import lombok.RequiredArgsConstructor;
 
 import java.time.Instant;
 import java.util.*;
 
+@RequiredArgsConstructor
 public class ShopService {
     private final ProductRepo productRepo;
 
     private final OrderRepoInterface orderRepo;
-
-    public ShopService(ProductRepo productRepo, OrderRepoInterface orderRepo) {
-        this.productRepo = productRepo;
-        this.orderRepo = orderRepo;
-    }
 
     public void createOrder(int customerId,Collection<Product> products) {
         List<Product> productsToOrder = new ArrayList<>();
