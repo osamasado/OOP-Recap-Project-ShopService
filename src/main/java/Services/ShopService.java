@@ -3,14 +3,12 @@ package Services;
 import DTO.Order;
 import DTO.Product;
 import Inertfaces.OrderRepoInterface;
-import Repositories.OrderListRepo;
 import Repositories.ProductRepo;
 import Utils.ConsoleColors;
 import Utils.OrderStatus;
 
-import java.time.LocalDate;
+import java.time.Instant;
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class ShopService {
     private final ProductRepo productRepo;
@@ -34,7 +32,7 @@ public class ShopService {
             totalAmount += product.amount();
             totalPrice += product.amount() * product.price();
         }
-        Order order = new Order(UUID.randomUUID().toString(), LocalDate.now(), customerId, productsToOrder, totalPrice, totalAmount, OrderStatus.IN_PROCESSING);
+        Order order = new Order(UUID.randomUUID().toString(), Instant.now(), customerId, productsToOrder, totalPrice, totalAmount, OrderStatus.IN_PROCESSING);
         orderRepo.addOrder(order);
         System.out.println(ConsoleColors.GREEN + "Your order is created." + ConsoleColors.RESET);
     }
